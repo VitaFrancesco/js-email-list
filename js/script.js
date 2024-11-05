@@ -1,30 +1,72 @@
 /**
  * 
- * @param {Array} array 
+ * @param {String} tagnName 
+ * @param {Array} classList 
+ * @param {Array} content 
+ * @param {Function} callback 
+ * @returns 
+ */
+function myCreateElement(
+    tagnName,
+    classList = [],
+    content = [],
+    callback = false
+  ) {
+    // Creo l'elemento
+    const el = document.createElement(tagnName);
+  
+    // Aggiungo le classi
+    if (classList.length > 0) {
+      el.classList.add(...classList);
+    }
+  
+    // Esegui la callback passando l'elemento
+    if (callback) {
+      callback(el);
+    }
+  
+    // Contenuto
+    if (Array.isArray(content)) {
+      for (let i = 0; i < content.length; i++) {
+        el.appendChild(content[i]);
+      }
+    } else if (content instanceof HTMLElement) {
+      el.appendChild(content);
+    } else if (typeof content === "string") {
+      el.innerHTML = content;
+    } else {
+      console.error("Non posso aggiungere l'elemento");
+    }
+    return el;
+};
+
+/**
+ * 
+ * @param {*} frag 
  * @param {Number | null} num 
  */
-function randomMail (array, num = 1) {
+function randomMail (frag, num = 1) {
     for (let i = 0; i < num; i++) {
         axios
             .get(
                 'https://flynn.boolean.careers/exercises/api/random/mail'
             )
             .then((res) => {
-                array.push(res.data.response);
+                let li = myCreateElement('li', [], res.data.response);
+                frag.appendChild(li);
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
             });
     };
 };
-let listMail = [];
-randomMail (listMail, 10);
-    
-console.log(listMail);
 
-const htmlList = document.querySelectorAll('.email-list li');
+
+const fragment = document.createDocumentFragment();
+randomMail (fragment, 10);
+
+const htmlList = document.querySelector('ul');
 console.log(htmlList);
 
-htmlList.forEach(element => {
-    element.innerHTML = listMail.at(htmlList.indexOf(element));
-});
+htmlList.appendChild(fragment);
+console.log(fragment);

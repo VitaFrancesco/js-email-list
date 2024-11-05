@@ -32,4 +32,7 @@ body {
 button {
     border-radius: 99px;
     padding: 5px 10px;
+    background-color: blueviolet;
+    color: white;
+    border-color: yellow;
 }
