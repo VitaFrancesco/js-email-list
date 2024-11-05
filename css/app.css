@@ -1,0 +1,35 @@
+/* reset rules */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+ul,ol {
+	list-style: none;
+}
+a {
+    text-decoration: none;
+    color: currentColor;
+}
+img {max-width: 100%;}
+
+/* project */
+body {
+    height: 100vh;
+    overflow: auto;
+    position: relative;
+}
+
+.container {
+    height: 70%;
+    width: 70%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+button {
+    border-radius: 99px;
+    padding: 5px 10px;
+}

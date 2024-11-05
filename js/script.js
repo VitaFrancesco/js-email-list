@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {Array} array 
+ * @param {Number | null} num 
+ */
 function randomMail (array, num = 1) {
     for (let i = 0; i < num; i++) {
         axios
@@ -9,11 +14,17 @@ function randomMail (array, num = 1) {
             })
             .catch((err) => {
                 console.log(err)
-                // qui abbiamo accesso all'errore che ha generato la chiamata
             });
     };
 };
 let listMail = [];
 randomMail (listMail, 10);
     
-console.log(listMail)
+console.log(listMail);
+
+const htmlList = document.querySelectorAll('.email-list li');
+console.log(htmlList);
+
+htmlList.forEach(element => {
+    element.innerHTML = listMail.at(htmlList.indexOf(element));
+});
