@@ -42,18 +42,16 @@ function myCreateElement(
 
 /**
  * 
- * @param {*} frag 
+ * @param {*} node 
  * @param {Number | null} num 
  */
-function randomMail (frag, num = 1) {
+function randomMail (node, num = 1) {
     for (let i = 0; i < num; i++) {
         axios
-            .get(
-                'https://flynn.boolean.careers/exercises/api/random/mail'
-            )
+            .get('https://flynn.boolean.careers/exercises/api/random/mail')
             .then((res) => {
                 let li = myCreateElement('li', [], res.data.response);
-                frag.appendChild(li);
+                node.appendChild(li);
             })
             .catch((err) => {
                 console.log(err);
@@ -62,11 +60,11 @@ function randomMail (frag, num = 1) {
 };
 
 
-const fragment = document.createDocumentFragment();
-randomMail (fragment, 10);
-
 const htmlList = document.querySelector('ul');
-console.log(htmlList);
+randomMail (htmlList, 10);
+const button = document.getElementById('generate-email');
+button.addEventListener("click", (event) => {
+    htmlList.innerHTML = '';
+    randomMail (htmlList, 10);
+});
 
-htmlList.appendChild(fragment);
-console.log(fragment);
